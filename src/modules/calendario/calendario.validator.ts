@@ -18,6 +18,7 @@ export const validateCalendario = (data: any) => {
                 'any.required': 'Il costo orario è obbligatorio.',
                 'number.min': 'Il costo orario deve essere almeno 1 token/ora',
             }),
+        isArchived: Joi.boolean().optional(),
     });
     return schema.validate(data);
 };

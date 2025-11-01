@@ -3,12 +3,13 @@ import { verifyJWT } from './jwt.service';
 import { JWT_ACCESS_TOKEN_SECRET } from '@/config';
 import { NextFunction, Request, Response } from 'express';
 import { userByIdService } from '@/modules/user/user.service';
+import { HttpStatus } from '@/utils/http-status';
 
 // Decodifica il token JWT passato dal metodo authMiddleware
 // In caso di token assente o non valido solleva un errore
 const decodeToken = async (header: string | undefined) => {
     if (!header) {
-        throw new CustomError('Authorization header missing', 401);
+        throw new CustomError('Authorization header missing', HttpStatus.UNAUTHORIZED);
     }
 
     const payload = await verifyJWT(header, JWT_ACCESS_TOKEN_SECRET as string);
@@ -34,16 +35,16 @@ export const tokenCheckMiddleware = async (req: Request, res: Response, next: Ne
     try {
         const payload = req.context; // contiene userId tra gli altri
         if(!payload?.userId) {
-            throw new CustomError("User mancante nel contesto", 401);
+            throw new CustomError("User mancante nel contesto", HttpStatus.UNAUTHORIZED);
         }
 
         const user = await userByIdService(payload.userId);
         if(!user) {
-            throw new CustomError("Utente non trovato", 404);
+            throw new CustomError("Utente non trovato", HttpStatus.NOT_FOUND);
         }
 
         if(user.tokenDisponibili <= 0) {
-            throw new CustomError("Token esauriti. Non puoi effettuare altre operazioni.", 401);
+            throw new CustomError("Token esauriti. Non puoi effettuare altre operazioni.", HttpStatus.UNAUTHORIZED);
         }
         next();
     } catch(error) {
@@ -58,13 +59,23 @@ export const authorizeRoles = (...allowedRoles: string[]) => {
         const user = req.context;
 
         if (!user) {
-            throw new CustomError('Utente non autenticato', 401);
+            throw new CustomError('Utente non autenticato', HttpStatus.UNAUTHORIZED);
         }
 
         if (!allowedRoles.includes(user.role)) {
-            throw new CustomError('Accesso non autorizzato', 403);
+            throw new CustomError('Accesso non autorizzato', HttpStatus.FORBIDDEN);
         }
 
         next();
     };
 };
+
+export const userAuthStack = [
+    authMiddleware, 
+    tokenCheckMiddleware
+];
+
+export const adminAuthStack = [
+    authMiddleware, 
+    authorizeRoles('admin')
+];

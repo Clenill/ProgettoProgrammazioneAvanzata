@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { CalendarioService } from './calendario.service';
-import { CustomError } from '@/utils/custom-error';
-import { getUserProfileService } from '@/modules/user/user.service';
+import { HttpStatus } from '@/utils/http-status';
+
 export class CalendarioController {
     static async crea(req:Request, res:Response, next: NextFunction) {
         try {
             const calendario = await CalendarioService.creaCalendario(req.body);
-            res.status(201).json({
+            res.status(HttpStatus.CREATED).json({
                 message: 'Calendario creato con successo.',
                 data: calendario,
             });
@@ -21,13 +21,13 @@ export class CalendarioController {
             const filters = req.body;
             const disponibile = await CalendarioService.disponibilePerIdeDataInizioFine(filters);
             if (!disponibile) {
-                res.status(400).json({
+                res.status(HttpStatus.BAD_REQUEST).json({
                     message: "Range date non disponibili."
                 });
                 return;
             } 
 
-            res.status(200).json({
+            res.status(HttpStatus.OK).json({
                 message: "Range di date disponibile per la prenotazione."
             });
             return; 
@@ -40,7 +40,22 @@ export class CalendarioController {
     static async prelevaCalendari(req: Request, res: Response, next: NextFunction) {
         try{
             const calendari = await CalendarioService.recuperaCalendari();
-            res.status(200).json(calendari);
+            res.status(HttpStatus.OK).json(calendari);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    static async archiviaCalenarioController(req: Request, res: Response, next: NextFunction) {
+        try{
+            const { id } = req.params;
+
+            const calendario = await CalendarioService.archiviaCalendarioService(id);
+
+            res.status(HttpStatus.OK).json({
+                message: 'Calendario aggiornato con successo.',
+                data: calendario
+            });
         } catch (error) {
             next(error);
         }
@@ -49,7 +64,7 @@ export class CalendarioController {
     static async singoloCalendario(req: Request, res: Response, next: NextFunction) {
         try {
             const calendario = await CalendarioService.calendarioById(req.params.id);
-            res.status(200).json(calendario);
+            res.status(HttpStatus.OK).json(calendario);
         } catch (error) {
             next(error);
         }
@@ -58,7 +73,7 @@ export class CalendarioController {
     static async elimina(req: Request, res: Response, next: NextFunction) {
         try {
             const response = await CalendarioService.eliminaCalendario(req.params.id);
-            res.status(200).json(response);
+            res.status(HttpStatus.OK).json(response);
         } catch (error) {
             next(error);
         }

@@ -3,7 +3,7 @@ import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 
 export type CalendarioCreationAttributes = Optional<
     Calendario,
-    'id'
+    'id' | 'isArchived'
 >;
 
 export class CalendarioModel
@@ -13,6 +13,7 @@ export class CalendarioModel
     public id!: string;
     public risorsaId!: string;
     public tokenCostoOrario!: number;
+    public isArchived!: boolean;
     public created_at?: string;
     public updated_at?: string;
 
@@ -36,6 +37,11 @@ export default function(sequelize: Sequelize): typeof CalendarioModel {
             tokenCostoOrario: {
                 allowNull: false,
                 type: DataTypes.INTEGER,
+            },
+            isArchived: {
+                allowNull: false,
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
             },
             created_at: DataTypes.DATE,
             updated_at: DataTypes.DATE,

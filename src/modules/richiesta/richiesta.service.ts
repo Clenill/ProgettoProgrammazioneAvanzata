@@ -7,22 +7,23 @@ import { CalendarioService } from '../calendario/calendario.service';
 import { Op } from 'sequelize';
 import { validateDisponibilitaCalendario } from '../calendario/calendario.validator';
 import CalendarioRepo from '../calendario/calendario.repo';
+import { HttpStatus } from '@/utils/http-status';
 
 export class RichiestaService {
     static async creaRichiesta(data: Richiesta, user: any) {
         // Necessario per modificaUserTokensService
         if (!user.userId) {
-            throw new CustomError('ID utente mancante', 400);
+            throw new CustomError('ID utente mancante', HttpStatus.BAD_REQUEST);
         }
         const richiestaData = { ...data, userId: user.userId};
         const { error } = validateRichiesta(richiestaData);
         if (error) {
-            throw new CustomError(error.details[0].message, 400);
+            throw new CustomError(error.details[0].message, HttpStatus.BAD_REQUEST);
         } 
 
         const calendario = await CalendarioService.calendarioById(data.calendarioId);
         if (!calendario) {
-            throw new CustomError('Calendario non trovato.', 404);
+            throw new CustomError('Calendario non trovato.', HttpStatus.NOT_FOUND);
         }
 
         //Validazione slot disponibile
@@ -33,13 +34,13 @@ export class RichiestaService {
         });
 
         if(!slotDisponibile) {
-            throw new CustomError('Lo slot temporale richiesto non è disponibile.', 409);
+            throw new CustomError('Lo slot temporale richiesto non è disponibile.', HttpStatus.CONFLICT);
         }
 
         // Calcolo ore e costo
         const ore = (new Date(data.dataFine).getTime() - new Date(data.dataInizio).getTime()) / (1000 * 60 * 60);
         if (ore <= 0) {
-            throw new CustomError('Intervallo non valido.', 400);
+            throw new CustomError('Intervallo non valido.', HttpStatus.BAD_REQUEST);
         } 
 
         const costoTotale = Math.floor(ore * calendario.tokenCostoOrario);
@@ -89,18 +90,17 @@ export class RichiestaService {
         // Validazione payload
         const { error } = validateRichiestaDecision(decision);
         if (error) {
-            throw new CustomError(error.details[0].message, 400);
+            throw new CustomError(error.details[0].message, HttpStatus.BAD_REQUEST);
         }
         // Recupera la richiesta
         const richiesta = await RichiestaRepo.findById(id);
         if (!richiesta) {
-            throw new CustomError('Richiesta non trovata.', 404);
+            throw new CustomError('Richiesta non trovata.', HttpStatus.NOT_FOUND);
         }
         // Controllo sullo stato della richiesta === 'pending'
         if(richiesta.stato !== 'pending') {
             throw new CustomError(
-                'Solo le richieste in stato pending possono essere modificate.',
-                400
+                'Solo le richieste in stato pending possono essere modificate.', HttpStatus.BAD_REQUEST
             );
         }
         // Dati da aggiornare
@@ -125,7 +125,7 @@ export class RichiestaService {
     static async verificaDisponibilitaRange(filters: any) {
         const { error } = validateDisponibilitaCalendario(filters);
         if (error) {
-            throw new CustomError(error.details[0].message, 400);
+            throw new CustomError(error.details[0].message, HttpStatus.BAD_REQUEST);
         }
 
         const { calendarioId, dataInizio, dataFine } = filters;
@@ -142,16 +142,16 @@ export class RichiestaService {
     static async cancellaRichiesta(id: string, user: any) {
         const richiesta = await RichiestaRepo.findById(id);
         if(!richiesta) {
-            throw new CustomError('Richiesta non trovata.', 404);
+            throw new CustomError('Richiesta non trovata.', HttpStatus.NOT_FOUND);
         }
 
         if(richiesta.userId !== user.userId) {
-            throw new CustomError('Non puoi cancellare richieste di altri utenti.', 403);
+            throw new CustomError('Non puoi cancellare richieste di altri utenti.', HttpStatus.FORBIDDEN);
         }
 
         const calendario = await CalendarioService.calendarioById(richiesta.calendarioId);
         if (!calendario) {
-            throw new CustomError('Calendario non trovato.', 404);
+            throw new CustomError('Calendario non trovato.', HttpStatus.NOT_FOUND);
         }
 
         const nowData = new Date();
@@ -217,7 +217,7 @@ export class RichiestaService {
     static async richiestePerCalendario(calendarioId: string) {
         const calendario = await CalendarioRepo.findById(calendarioId);
             if (!calendario) {
-            throw new CustomError('Calendario non trovato.', 404);
+            throw new CustomError('Calendario non trovato.', HttpStatus.NOT_FOUND);
         }
         return await RichiestaRepo.findByCalendarioId(calendarioId);
     }

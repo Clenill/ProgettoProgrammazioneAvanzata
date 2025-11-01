@@ -45,8 +45,8 @@ const RichiestaRepo = {
         return await DB.Richiesta.count({
             where: {
                 calendarioId,
-                stato: 'approved',
-                dataInizio: { [Op.gt]: new Date(Date.now()) } // Data inizio
+                stato: { [Op.in]: ['approved', 'pending'] },
+                dataInizio: { [Op.gt]: new Date(Date.now()) } // Valuta la data successiva a quella odierna
             }
         });
     },

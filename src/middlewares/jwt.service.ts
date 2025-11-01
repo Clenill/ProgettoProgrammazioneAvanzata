@@ -8,7 +8,7 @@ export const generateJWT = async (payload: any, secretKey: string) => {
         throw new Error(error.message);
     }
 };
-
+// TODO RS256 
 export const verifyJWT = async (
     token: string,
     secretKey: string,
@@ -23,5 +23,5 @@ export const verifyJWT = async (
         return data as jwt.JwtPayload;
     } catch (error: any) {
         throw new Error(error.message);
-    }
+    } // TODO due login che staccano il token admin e user
 };

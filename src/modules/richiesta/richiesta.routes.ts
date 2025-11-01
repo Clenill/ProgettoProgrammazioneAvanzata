@@ -1,12 +1,12 @@
 import express from 'express';
 import { RichiestaController } from './richiesta.controller';
-import { authMiddleware, authorizeRoles, tokenCheckMiddleware } from '@/middlewares/auth.middleware';
+import { authorizeRoles, adminAuthStack, userAuthStack } from '@/middlewares/auth.middleware';
 const richiestaRouter = express.Router();
 
-richiestaRouter.post('/crea', authMiddleware, tokenCheckMiddleware, authorizeRoles('utente'), RichiestaController.crea);
-richiestaRouter.get('/filtra', authMiddleware, tokenCheckMiddleware, authorizeRoles('utente'), RichiestaController.prelevaRichieste);
-richiestaRouter.put('/modifica/:id',  authMiddleware, authorizeRoles('admin'), RichiestaController.destinoRichiesta);
-richiestaRouter.get('/richiestecalendario/:calendarioId',  authMiddleware, authorizeRoles('admin'), RichiestaController.statoRichiesteCalendario);
-richiestaRouter.delete('/elimina/:id',  authMiddleware, tokenCheckMiddleware, authorizeRoles('utente'), RichiestaController.cancellazionePrenotazione);
-richiestaRouter.post('/recuperafiltrate', authMiddleware, tokenCheckMiddleware, authorizeRoles('utente'), RichiestaController.listaFiltrata);
+richiestaRouter.post('/crea', userAuthStack, authorizeRoles('utente'), RichiestaController.crea);
+richiestaRouter.get('/filtra', userAuthStack, authorizeRoles('utente'), RichiestaController.prelevaRichieste);
+richiestaRouter.put('/modifica/:id',  adminAuthStack, RichiestaController.destinoRichiesta);
+richiestaRouter.get('/richiestecalendario/:calendarioId',  adminAuthStack, RichiestaController.statoRichiesteCalendario);
+richiestaRouter.delete('/elimina/:id',  userAuthStack, authorizeRoles('utente'), RichiestaController.cancellazionePrenotazione);
+richiestaRouter.post('/recuperafiltrate', userAuthStack, authorizeRoles('utente'), RichiestaController.listaFiltrata);
 export default richiestaRouter;

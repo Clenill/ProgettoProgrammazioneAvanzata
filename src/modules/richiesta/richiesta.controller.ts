@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { RichiestaService } from './richiesta.service';
 import { CustomError } from '@/utils/custom-error';
 import { validateFiltroRichieste } from './richiesta.validator';
+import { HttpStatus } from '@/utils/http-status';
 
 export class RichiestaController {
     static async crea(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -9,11 +10,11 @@ export class RichiestaController {
             // Utente già autenticato e autorizzato nel middleware
             const user = req.context;
             if(!user) {
-                throw new CustomError("User mancante", 401);
+                throw new CustomError("User mancante", HttpStatus.UNAUTHORIZED);
             }
             const richiesta = await RichiestaService.creaRichiesta(req.body, user);
 
-            res.status(201).json({
+            res.status(HttpStatus.CREATED).json({
                 message: 'Richiesta creata con successo.',
                 data: richiesta,
             });
@@ -29,7 +30,7 @@ export class RichiestaController {
             const messaggio = richieste.length > 0 
                 ? "Richieste recuperate con successo."
                 : "Nessuna richiesta recuperata.";
-            res.status(200).json({ 
+            res.status(HttpStatus.OK).json({ 
                 message: messaggio,
                 count: richieste.length,
                 risposta: richieste ,
@@ -46,7 +47,7 @@ export class RichiestaController {
 
             const richiesta = await RichiestaService.aggiornaStatoRichiestaPending(id, decision);
 
-            res.status(200).json({
+            res.status(HttpStatus.OK).json({
                 message: 'Stato della richiesta aggiornato con successo.',
                 data: richiesta,
             });
@@ -60,12 +61,12 @@ export class RichiestaController {
             const idRichiesta = req.params.id;
             const user  = req.context;
             if(!user) {
-                throw new CustomError("User mancante", 401);
+                throw new CustomError("User mancante", HttpStatus.UNAUTHORIZED);
             }
 
             const response = await RichiestaService.cancellaRichiesta(idRichiesta, user);
 
-            res.status(200).json({
+            res.status(HttpStatus.OK).json({
                 message: 'Richiesta cancellata con successo.',
                 data: response
             });
@@ -78,12 +79,12 @@ export class RichiestaController {
         try {
             const { error } = validateFiltroRichieste(req.body);
             if (error) {
-                throw new CustomError(error.details[0].message, 400);
+                throw new CustomError(error.details[0].message, HttpStatus.BAD_REQUEST);
             }
 
             const richieste = await RichiestaService.tutteLeRichiesteFiltrate(req.body);
 
-            res.status(200).json({
+            res.status(HttpStatus.OK).json({
                 message: richieste.length ? "Richieste trovate." : "Nessuna richiesta trovata.",
                 count: richieste.length,
             data: richieste.map(r => ({
@@ -105,7 +106,7 @@ export class RichiestaController {
 
             const richieste = await RichiestaService.richiestePerCalendario(calendarioId);
 
-            res.status(200).json({
+            res.status(HttpStatus.OK).json({
                 message: richieste.length
                 ? "Richieste trovate."
                 : "Nessuna richiesta trovata per questo calendario.",

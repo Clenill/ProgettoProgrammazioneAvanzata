@@ -1,12 +1,12 @@
 import express from 'express';
 import { RisorsaController } from './risorsa.controller';
-
+import { adminAuthStack } from '@/middlewares/auth.middleware';
 const risorsaRouter = express.Router();
 
-risorsaRouter.post('/nuovarisorsa', RisorsaController.nuovaRisorsa);
-risorsaRouter.get('/prendirisorse', RisorsaController.recuperaRisorse);
-risorsaRouter.get('/:id', RisorsaController.prelevaRisorsaPerId);
-risorsaRouter.put('/:id', RisorsaController.aggiornaRisorsa);
-risorsaRouter.delete('/:id', RisorsaController.cancellaRisorsa);
+risorsaRouter.post('/nuovarisorsa', adminAuthStack, RisorsaController.nuovaRisorsa); // TODO ruolo admin pe tutte le risorse
+risorsaRouter.get('/prendirisorse', adminAuthStack, RisorsaController.recuperaRisorse);
+risorsaRouter.get('/:id', adminAuthStack, RisorsaController.prelevaRisorsaPerId);
+risorsaRouter.put('/:id', adminAuthStack, RisorsaController.aggiornaRisorsa);
+risorsaRouter.delete('/:id', adminAuthStack, RisorsaController.cancellaRisorsa);
 
 export default risorsaRouter;
