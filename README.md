@@ -3,7 +3,7 @@ Progettazione di un sistema HPC Booking System
 
 Il progetto consiste nello sviluppo del back-end che realizza un sistema di prenotazione di risorse HPC, con l'utilizzo delle tecnologie:
 Node.js, Express, PostgreSQL, Sequelize e Typescript.
-Il sistema prevede possibilità di creare risorse, ad esempio GPU, e gestirne l'utilizzo da parte degli utenti con appositi calendari. 
+Il sistema prevede la possibilità di creare risorse, ad esempio GPU, e gestirne l'utilizzo da parte degli utenti con appositi calendari. 
 Gli utenti potranno fare richiesta di prenotazione solo se hanno un numero sufficiente di token e lo slot temporale del calendario non è occupato
 da un'altra richesta. 
 Abbiamo, quindi, due figure: Amministratore e Utente, con ruoli distinti. Questi una volta registrati con apposita rotta
