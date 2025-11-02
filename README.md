@@ -9,6 +9,8 @@ da un'altra richesta.
 Abbiamo, quindi, due figure: Amministratore e Utente, con ruoli distinti. Questi una volta registrati con apposita rotta
 potranno loggarsi nel sistema ed interagire con esso mediante un proprio token JWT.
 
+## Funzionalità Principali
+
 Gli utenti possono interagire con il sistema attraverso diverse operazioni:
 - Prenotare una risorsa attraverso il calendario ad essa associato, specificando lo slot orario.
 - Verificare la disponibilià della risorsa e degli slot temporali liberi.
