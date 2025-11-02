@@ -1,6 +1,5 @@
 import { CustomError } from '@/utils/custom-error';
-import { verifyJWT } from './jwt.service';
-import { JWT_ACCESS_TOKEN_SECRET } from '@/config';
+import { vJWT } from './jwt.service';
 import { NextFunction, Request, Response } from 'express';
 import { userByIdService } from '@/modules/user/user.service';
 import { HttpStatus } from '@/utils/http-status';
@@ -12,7 +11,7 @@ const decodeToken = async (header: string | undefined) => {
         throw new CustomError('Authorization header missing', HttpStatus.UNAUTHORIZED);
     }
 
-    const payload = await verifyJWT(header, JWT_ACCESS_TOKEN_SECRET as string);
+    const payload = await vJWT(header);
 
     return payload;
 };

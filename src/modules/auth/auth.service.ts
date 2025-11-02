@@ -1,8 +1,7 @@
 import { User } from '@/interfaces/user.interfaces';
 import { validateSignUp, validateSignIn } from './auth.validator';
 import repo from './auth.repo';
-import { generateJWT } from '@/middlewares/jwt.service';
-import { JWT_ACCESS_TOKEN_SECRET } from '@/config';
+import { gJWT } from '@/middlewares/jwt.service';
 import { CustomError } from '@/utils/custom-error';
 import { HttpStatus } from '@/utils/http-status';
 // Service di registrazione nuovo utente
@@ -40,10 +39,7 @@ export class AuthService {
             email: user.email,
             role: user.role,
         };
-        const accessToken = await generateJWT(
-        payload,
-        JWT_ACCESS_TOKEN_SECRET as string,
-    );
+        const accessToken = await gJWT(payload);
 
     return { user, accessToken };
     }

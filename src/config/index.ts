@@ -6,7 +6,6 @@ config({ path: envFile });
 export const {
     PORT,
     NODE_ENV,
-    JWT_ACCESS_TOKEN_SECRET,
 } = process.env;
 
 export const {
