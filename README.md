@@ -25,7 +25,7 @@ Le operazioni principali che possono svolgere gli amministratori sono:
 - Approvare o meno le richieste di prenotazione per una risorsa.
 - Visualizzare lo status delle richieste per un calendario specifico.
 
-Design Pattern e Architettura utilizzati
+## Design Pattern e Architettura utilizzati
 
 Come anticipato il progetto si basa su Express che citando la documentazione è un framework flessibile e minimale per applicazioni web Node.js.
 Express è utilizzato per il routing delle richieste HTTP, il parsing dei payload e l'instradamento verso i controller appropriati. 
