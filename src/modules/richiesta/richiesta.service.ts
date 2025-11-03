@@ -185,7 +185,10 @@ export class RichiestaService {
 
         return {
             idRichiesta: richiesta.id,
-            tokenRestituiti: tokenDaRestituire
+            rimborsoSenzaPenale: rimborso,
+            tokenRestituiti: tokenDaRestituire,
+            oreUsate: oreUsate,
+            oreNonUsate: oreNonUsate,
         };
     }
 
