@@ -1,0 +1,32 @@
+services:
+  backend:
+    container_name: paproject-backend
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    env_file:
+      - .env.development
+    environment:
+      - DB_HOST=db
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: [ "npm", "run", "start" ]
+
+  db:
+    image: postgres:15
+    container_name: paproject-db
+    restart: always
+    environment:
+      POSTGRES_DB: paproject
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5433:5432"  # ← cambia porta esterna (5433) se 5432 è occupata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
