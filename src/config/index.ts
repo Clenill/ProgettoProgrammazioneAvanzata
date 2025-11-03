@@ -16,4 +16,6 @@ export const {
     DB_HOST,
     DB_DIALECT,
     JWT_EXPIRATION,
+    JWT_PRIVATE_KEY,
+    JWT_PUBLIC_KEY,
 } = process.env;

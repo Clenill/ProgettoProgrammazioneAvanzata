@@ -1,16 +1,14 @@
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
-import { JWT_EXPIRATION } from '@/config';
-const privateKey = fs.readFileSync(path.join(__dirname, '../../keys/private.key'), 'utf8');
-const publicKey = fs.readFileSync(path.join(__dirname, '../../keys/public.key'), 'utf8');
+import { JWT_EXPIRATION, JWT_PRIVATE_KEY, JWT_PUBLIC_KEY } from '@/config';
 
 export const gJWT = async(payload: any): Promise<string> => {
     try {
         if(!JWT_EXPIRATION) {
              console.warn('⚠️ JWT_EXPIRATION non definito, uso valore di default (1h)');
         }
-        return jwt.sign(payload, privateKey, {
+        return jwt.sign(payload, JWT_PRIVATE_KEY as string, {
             algorithm: 'RS256',
             expiresIn: JWT_EXPIRATION || '1h'
         });
@@ -21,7 +19,7 @@ export const gJWT = async(payload: any): Promise<string> => {
 
 export const vJWT = async(token: string): Promise<jwt.JwtPayload> => {
     try {
-        const data = jwt.verify(token, publicKey, {
+        const data = jwt.verify(token, JWT_PUBLIC_KEY as string, {
             algorithms: ['RS256']
         });
 
