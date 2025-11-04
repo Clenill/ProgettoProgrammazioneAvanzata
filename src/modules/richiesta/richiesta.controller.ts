@@ -13,11 +13,19 @@ export class RichiestaController {
                 throw new CustomError("User mancante", HttpStatus.UNAUTHORIZED);
             }
             const richiesta = await RichiestaService.creaRichiesta(req.body, user);
-
+            // In caso di stato invalid la risposta è leggermente diversa
+            if (richiesta.stato === 'invalid') {
+                res.status(HttpStatus.OK).json({
+                    message: 'Richiesta registrata ma non valida per token insufficienti',
+                    data: richiesta
+                });
+                return;
+            }
             res.status(HttpStatus.CREATED).json({
                 message: 'Richiesta creata con successo.',
                 data: richiesta,
             });
+            return;
         } catch (error) {
             next(error);
         }

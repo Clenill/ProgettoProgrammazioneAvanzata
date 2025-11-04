@@ -8,6 +8,7 @@ import { Op } from 'sequelize';
 import { validateDisponibilitaCalendario } from '../calendario/calendario.validator';
 import CalendarioRepo from '../calendario/calendario.repo';
 import { HttpStatus } from '@/utils/http-status';
+import { repo } from '../user/user.repo';
 
 export class RichiestaService {
     static async creaRichiesta(data: Richiesta, user: any) {
@@ -15,6 +16,12 @@ export class RichiestaService {
         if (!user.userId) {
             throw new CustomError('ID utente mancante', HttpStatus.BAD_REQUEST);
         }
+
+        const userDb = await repo.getUserProfile(user.userId);
+        if(!userDb){
+            throw new CustomError('Utente non trovato', HttpStatus.NOT_FOUND);
+        }
+
         const richiestaData = { ...data, userId: user.userId};
         const { error } = validateRichiesta(richiestaData);
         if (error) {
@@ -46,7 +53,7 @@ export class RichiestaService {
         const costoTotale = Math.floor(ore * calendario.tokenCostoOrario);
 
         // check token utente maggiori costo richiesta
-        if (user.tokenDisponibili < costoTotale) {
+        if (userDb.tokenDisponibili < costoTotale) {
             return await RichiestaRepo.create({
                 ...richiestaData,
                 stato: 'invalid',
