@@ -87,13 +87,7 @@ export class RichiestaController {
             res.status(HttpStatus.OK).json({
                 message: richieste.length ? "Richieste trovate." : "Nessuna richiesta trovata.",
                 count: richieste.length,
-            data: richieste.map(r => ({
-                id: r.id,
-                stato: r.stato,
-                calendarioId: r.calendarioId,
-                dataInizio: r.dataInizio,
-                dataFine: r.dataFine
-            }))
+                data: richieste
             });
         } catch (error) {
             next(error);
