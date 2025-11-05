@@ -130,6 +130,19 @@ Esempio di **payload:**
 </br>
 <img width="1208" height="956" alt="richieste con filtri opzionali" src="https://github.com/user-attachments/assets/30fe1ae2-a441-44d6-b023-581c6c9bdb66" />
 </br>
+**Rotta:** `POST richieste/recuperafiltrate`
+
+Esempio di **payload:**
+
+```json
+{
+    "calendarioId": "71a0d183-f3aa-445a-ad78-2811dcc2ae13",
+    "stato": "pending",
+    "dataInizio": "2025-11-01T18:00:00.000Z",
+    "dataFine": "2025-11-31T21:00:00.000Z"
+}
+```
+</br>
 Rotte Amministratore </br>
 <img width="1556" height="1391" alt="creazione calendario" src="https://github.com/user-attachments/assets/593feb80-43ef-4030-9f34-7f50dc306701" />
 </br>
