@@ -160,7 +160,7 @@ Esempio di **payload:**
 </br>
 <img width="1263" height="1235" alt="conferma o rifiuta richiesta" src="https://github.com/user-attachments/assets/c844388e-7d28-4168-a0e7-56efc7fdf256" />
 </br>
-**Rotta:** `POST /calendario/crea`
+**Rotta:** `PUT /richieste/modifica/{richiestaId}`
 
 **Parametri query:**
 
