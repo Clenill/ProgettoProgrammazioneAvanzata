@@ -59,5 +59,5 @@ Nel sistema si fa ampiamente uso dei middleware per gestire l'autenticazione, au
 Sono stati implementati 4 test con Jest, come da richiesta. I test coinvolgono i validatori delle richieste, del calendario, il middleware che si occupa del ruolo e il middleware per il check dei token.
 
 ## Diagrammi UML
-Diagramma casi d'uso</br>
+Diagramma casi d'uso</br></br>
 <img width="746" height="1281" alt="Diagramma casi uso drawio" src="https://github.com/user-attachments/assets/68dd6624-2ece-44bc-9b02-66d96299c05d" />
