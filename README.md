@@ -211,6 +211,20 @@ Esempio di **payload:**
 Utente non registrato </br>
 <img width="1094" height="707" alt="signup" src="https://github.com/user-attachments/assets/af7adb6b-dbdb-4c79-b274-88a3ff4ee394" />
 </br>
+**Rotta:** `POST /auth/signup`
+
+Esempio di **payload:**
+
+```json
+{
+  "email": "testabca@example.com",
+  "username": "testUser",
+  "role": "utente"
+}
+
+```
+</br>
+</br>
 ### Avvio
 L'avvio del progetto può essere fatto con git clone  
 ```bash
