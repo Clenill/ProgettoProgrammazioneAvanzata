@@ -93,21 +93,15 @@ Esempio di **payload:**
 </br>
 <img width="1122" height="987" alt="richieste filtra" src="https://github.com/user-attachments/assets/f4233a72-8e8e-4bae-843b-3af0650ef0d3" />
 </br>
-**Rotta:** `POST /signin`
-
-**Parametri query:**
-
-- `graph`: grafo in formato JSON con la seguente struttura
+**Rotta:** `POST /richieste/filtra`
 
 Esempio di **payload:**
 
 ```json
 {
-    "titolo": "richiesta sovrapposta",
-    "motivazione":"utilizzo risorsa sovrapposta",
-    "dataInizio": "2025-11-05T10:00:00.000Z",
-    "dataFine": "2025-11-05T13:00:00.000Z",
-    "calendarioId": "71a0d183-f3aa-445a-ad78-2811dcc2ae13"
+    "stato": "pending",
+    "dataInizio" : "2025-10-31T09:00:00.000Z",
+    "dataFine": "2025-11-31T09:59:59.000Z"
 }
 ```
 </br>
