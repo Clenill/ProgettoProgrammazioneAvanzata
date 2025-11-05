@@ -98,3 +98,7 @@ e successivamente creare la build con Docker
 ```bash
 docker compose build
 ```
+avviarla
+```bash
+docker compose up
+```
