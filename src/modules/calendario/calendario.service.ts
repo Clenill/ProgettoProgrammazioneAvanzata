@@ -7,6 +7,17 @@ import { RichiestaService } from '../richiesta/richiesta.service';
 import { HttpStatus } from '@/utils/http-status';
 
 export class CalendarioService {
+    /**
+     * Crea un nuovo calendario associato a una risorsa.
+     * - Valida i dati di input (risorsaId, tokenCostoOrario)
+     * - Verifica che la risorsa esista
+     * - Impedisce la creazione di un secondo calendario per la stessa risorsa
+     * - Registra un nuovo calendario attivo (isArchived = false)
+     * 
+     * @throws CustomError 400 se i dati non passano la validazione
+     * @throws CustomError 404 se la risorsa non esiste
+     * @throws CustomError 409 se esiste già un calendario per la risorsa
+     */
     static async creaCalendario(data: Calendario) {
         const { error } = validateCalendario(data);
         if(error) {
@@ -34,6 +45,17 @@ export class CalendarioService {
         return newCalendario;
     }
 
+    /**
+     * Verifica se uno slot temporale è disponibile per un dato calendario.
+     * - Valida i parametri (calendarioId, dataInizio, dataFine)
+     * - Controlla che il calendario esista
+     * - Delegata al RichiestaService per verificarne le sovrapposizioni
+     * 
+     * @returns boolean → true se disponibile, false altrimenti
+     * 
+     * @throws CustomError 400 se validazione fallisce
+     * @throws CustomError 404 se il calendario non esiste
+     */
     static async disponibilePerIdeDataInizioFine(filters: any){
         // Si validano i campi
         const { error } = validateDisponibilitaCalendario(filters);
@@ -54,6 +76,12 @@ export class CalendarioService {
         return await CalendarioRepo.findAll();
     }
 
+    /**
+     * Recupera un calendario tramite il suo id.
+     * - Se non esiste, solleva errore personalizzato.
+     * 
+     * @throws CustomError 404 se il calendario non è trovato
+     */
     static async calendarioById(id: string) {
         const calendario = await CalendarioRepo.findById(id);
         if (!calendario) {
@@ -62,7 +90,15 @@ export class CalendarioService {
         return calendario;
     }
 
-    // Service per archiviare un calendario
+     /**
+     * Archivia un calendario.
+     * - Verifica che il calendario esista
+     * - Impedisce di archiviare due volte
+     * - Segna isArchived = true
+     * 
+     * @throws CustomError 404 se il calendario non esiste
+     * @throws CustomError 409 se è già archiviato
+     */
     static async archiviaCalendarioService(id: string) {
         const calendario = await CalendarioRepo.findById(id);
         if(!calendario) {
@@ -78,8 +114,17 @@ export class CalendarioService {
         return updated;
     }
 
-    // Si chiama il service di Richieste e verifica se ci sono richieste approved e di data successiva
-    // Nel caso non ci sono richieste che soddisfano i parametri si procede alla cancellazione del calendario
+    /**
+     * Elimina un calendario.
+     * - Verifica che il calendario esista
+     * - Impedisce l'eliminazione se è archiviato
+     * - Controlla tramite RichiestaService se esistono richieste attive
+     * - Se è tutto ok, elimina definitivamente il calendario
+     * 
+     * @throws CustomError 404 se il calendario non esiste
+     * @throws CustomError 409 se è archiviato
+     * @throws CustomError 409 se ci sono richieste attive future
+     */
     static async eliminaCalendario(id: string) {
         const calendario = await CalendarioRepo.findById(id);
         if (!calendario) {

@@ -5,6 +5,28 @@ import { validateRisorsa } from './risorsa.validator';
 import { HttpStatus } from '@/utils/http-status';
 
 export class RisorsaService {
+    /**
+     * Crea una nuova risorsa nel sistema.
+     * 
+     * Funzionalità:
+     * - Valida i dati inseriti (nome obbligatorio)
+     * - Normalizza il nome della risorsa 
+     * - Verifica che non esista già una risorsa con lo stesso nome normalizzato
+     * - Registra la nuova risorsa nel database
+     * 
+     * Regole di normalizzazione del nome:
+     * - rimozione spazi superflui ai bordi
+     * - conversione in minuscolo
+     * - sostituzione degli spazi interni con underscore (`_`)
+     *   Esempio: "Sala Riunioni Nord" → "sala_riunioni_nord"
+     * 
+     * @param data Oggetto `Risorsa` contenente i dati della nuova risorsa
+     * 
+     * @throws CustomError 400 se i dati non passano la validazione
+     * @throws CustomError 409 se una risorsa con lo stesso nome esiste già
+     * 
+     * @returns La risorsa creata
+     */
     static async creaRisorsa(data: Risorsa) {
         const { error } = validateRisorsa(data);
         if(error) {
