@@ -41,7 +41,8 @@ Ogni entità (User, Calendario, Richiesta, Risorsa) ha un file Repository associ
 -   incapsula i meccanismi di archiviazione, recupero e ricerca.
 -   permetta la sostituzione del DB senza modifiche al service.
 
-### Il Singleton è un pattern creazionale, garantisce che una classe ha una sola istanza e fornisce un punto di accesso globale a tale istanza. Ciò è stato adottato per stabilire la connessione univoca al database.
+### Singleton
+È un pattern creazionale, garantisce che una classe ha una sola istanza e fornisce un punto di accesso globale a tale istanza. Ciò è stato adottato per stabilire la connessione univoca al database. 
 
 Tutta la logica applicativa complessa è inserita in un service layer, anche in questo caso un service per ogni entità. In modo da rendere la
 manutenzione e modifica separate e meglio accessibile.
