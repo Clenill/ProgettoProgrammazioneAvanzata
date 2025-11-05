@@ -67,10 +67,6 @@ Rotte Utente: </br>
 </br>
 **Rotta:** `POST /signin`
 
-**Parametri query:**
-
-- `graph`: grafo in formato JSON con la seguente struttura
-
 Esempio di **payload:**
 
 ```json
@@ -81,7 +77,39 @@ Esempio di **payload:**
 </br>
 <img width="1670" height="1874" alt="crea richiesta" src="https://github.com/user-attachments/assets/a32acdfb-0f8f-4dca-93c4-a6f51ed1c10f" />
 </br>
+**Rotta:** `POST /richieste/crea`
+
+Esempio di **payload:**
+
+```json
+{
+    "titolo": "richiesta sovrapposta",
+    "motivazione":"utilizzo risorsa sovrapposta",
+    "dataInizio": "2025-11-05T10:00:00.000Z",
+    "dataFine": "2025-11-05T13:00:00.000Z",
+    "calendarioId": "71a0d183-f3aa-445a-ad78-2811dcc2ae13"
+}
+```
+</br>
 <img width="1122" height="987" alt="richieste filtra" src="https://github.com/user-attachments/assets/f4233a72-8e8e-4bae-843b-3af0650ef0d3" />
+</br>
+**Rotta:** `POST /signin`
+
+**Parametri query:**
+
+- `graph`: grafo in formato JSON con la seguente struttura
+
+Esempio di **payload:**
+
+```json
+{
+    "titolo": "richiesta sovrapposta",
+    "motivazione":"utilizzo risorsa sovrapposta",
+    "dataInizio": "2025-11-05T10:00:00.000Z",
+    "dataFine": "2025-11-05T13:00:00.000Z",
+    "calendarioId": "71a0d183-f3aa-445a-ad78-2811dcc2ae13"
+}
+```
 </br>
 <img width="1855" height="1180" alt="elimina richiesta" src="https://github.com/user-attachments/assets/fec61dbc-ad47-4142-a20b-4de0812deaa9" />
 </br>
