@@ -65,6 +65,20 @@ Diagrammi sequenze </br></br>
 Rotte Utente: </br>
 <img width="967" height="707" alt="login" src="https://github.com/user-attachments/assets/6d651a6e-26ca-42e5-9d56-322bc30303a6" />
 </br>
+**Rotta:** `POST /signin`
+
+**Parametri query:**
+
+- `graph`: grafo in formato JSON con la seguente struttura
+
+Esempio di **payload:**
+
+```json
+{
+  "email": "testaba@example.com"
+}
+```
+</br>
 <img width="1670" height="1874" alt="crea richiesta" src="https://github.com/user-attachments/assets/a32acdfb-0f8f-4dca-93c4-a6f51ed1c10f" />
 </br>
 <img width="1122" height="987" alt="richieste filtra" src="https://github.com/user-attachments/assets/f4233a72-8e8e-4bae-843b-3af0650ef0d3" />
