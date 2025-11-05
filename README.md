@@ -75,3 +75,15 @@ Rotte Utente: </br>
 </br>
 <img width="1208" height="956" alt="richieste con filtri opzionali" src="https://github.com/user-attachments/assets/30fe1ae2-a441-44d6-b023-581c6c9bdb66" />
 </br>
+Rotte Amministratore </br>
+<img width="1556" height="1391" alt="creazione calendario" src="https://github.com/user-attachments/assets/593feb80-43ef-4030-9f34-7f50dc306701" />
+</br>
+<img width="1263" height="1235" alt="conferma o rifiuta richiesta" src="https://github.com/user-attachments/assets/c844388e-7d28-4168-a0e7-56efc7fdf256" />
+</br>
+<img width="1355" height="937" alt="stato richeste per calendario" src="https://github.com/user-attachments/assets/372c88aa-ce45-45e5-b133-c4cc766934d7" />
+</br>
+<img width="1340" height="1171" alt="aggiunta token" src="https://github.com/user-attachments/assets/7a459001-2c79-4947-b7fc-4e02e53d8ce3" />
+</br>
+<img width="1224" height="1018" alt="creazione risorsa" src="https://github.com/user-attachments/assets/e5510ba1-dc7a-4932-88b5-5b3300e8da43" />
+</br>
+### Docker
