@@ -111,27 +111,20 @@ Esempio di **payload:**
 
 **Parametri query:**
 
-- `richiestaId`: grafo in formato JSON con la seguente struttura
+- `richiestaId`: id della richiesta da eliminare
 
 </br>
 <img width="1738" height="1071" alt="slot orario calendario" src="https://github.com/user-attachments/assets/c139ae1f-4270-4483-8e9c-8b151bd1d005" />
 </br>
 **Rotta:** `POST /createGraph`
 
-**Parametri query:**
-
-- `graph`: grafo in formato JSON con la seguente struttura
-
 Esempio di **payload:**
 
 ```json
 {
-  "graph": {
-    "A": { "B": 5, "C": 2 },
-    "B": { "A": 5, "C": 1, "D": 3 },
-    "C": { "A": 2, "B": 1, "D": 6 },
-    "D": { "B": 3, "C": 6 }
-  }
+    "calendarioId": "71a0d183-f3aa-445a-ad78-2811dcc2ae13",
+    "dataInizio": "2025-11-05T09:00:00.000Z",
+    "dataFine": "2025-11-05T10:00:00.000Z"
 }
 ```
 </br>
