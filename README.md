@@ -249,3 +249,5 @@ Avvia il backend:
 ```bash
 docker compose up
 ```
+## Autore
+Michele Longo
