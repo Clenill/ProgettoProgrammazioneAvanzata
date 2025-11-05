@@ -241,11 +241,11 @@ L'avvio del progetto può essere fatto con git clone
 ```bash
 git clone https://github.com/Clenill/ProgettoProgrammazioneAvanzata.git
 ```
-e dopo aver importato o creato il file env appropriato, creare la build con Docker
+e dopo aver importato o creato il file env appropriato, compila l'immagine con il comando Docker:
 ```bash
 docker compose build
 ```
-avviarla
+Avvia il backend:
 ```bash
 docker compose up
 ```
