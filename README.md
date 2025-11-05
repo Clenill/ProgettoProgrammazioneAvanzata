@@ -185,6 +185,17 @@ Esempio di **payload:**
 </br>
 <img width="1340" height="1171" alt="aggiunta token" src="https://github.com/user-attachments/assets/7a459001-2c79-4947-b7fc-4e02e53d8ce3" />
 </br>
+**Rotta:** `PUT /user/addtokens`
+
+Esempio di **payload:**
+
+```json
+{
+    "userId": "572f9ff1-fbb2-41ca-8bcd-49693e5adb54",
+    "token": 100
+}
+```
+</br>
 <img width="1224" height="1018" alt="creazione risorsa" src="https://github.com/user-attachments/assets/e5510ba1-dc7a-4932-88b5-5b3300e8da43" />
 </br>
 Utente non registrato </br>
