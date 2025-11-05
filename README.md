@@ -65,7 +65,7 @@ Diagrammi sequenze </br></br>
 Rotte Utente: </br>
 <img width="967" height="707" alt="login" src="https://github.com/user-attachments/assets/6d651a6e-26ca-42e5-9d56-322bc30303a6" />
 </br>
-**Rotta:** `POST /signin`
+**Rotta:** `POST /auth/signin`
 
 Esempio di **payload:**
 
@@ -93,7 +93,7 @@ Esempio di **payload:**
 </br>
 <img width="1122" height="987" alt="richieste filtra" src="https://github.com/user-attachments/assets/f4233a72-8e8e-4bae-843b-3af0650ef0d3" />
 </br>
-**Rotta:** `POST /richieste/filtra`
+**Rotta:** `GET /richieste/filtra`
 
 Esempio di **payload:**
 
@@ -107,7 +107,33 @@ Esempio di **payload:**
 </br>
 <img width="1855" height="1180" alt="elimina richiesta" src="https://github.com/user-attachments/assets/fec61dbc-ad47-4142-a20b-4de0812deaa9" />
 </br>
+**Rotta:** `DELETE /richieste/elimina/{Id}`
+
+**Parametri query:**
+
+- `richiestaId`: grafo in formato JSON con la seguente struttura
+
+</br>
 <img width="1738" height="1071" alt="slot orario calendario" src="https://github.com/user-attachments/assets/c139ae1f-4270-4483-8e9c-8b151bd1d005" />
+</br>
+**Rotta:** `POST /createGraph`
+
+**Parametri query:**
+
+- `graph`: grafo in formato JSON con la seguente struttura
+
+Esempio di **payload:**
+
+```json
+{
+  "graph": {
+    "A": { "B": 5, "C": 2 },
+    "B": { "A": 5, "C": 1, "D": 3 },
+    "C": { "A": 2, "B": 1, "D": 6 },
+    "D": { "B": 3, "C": 6 }
+  }
+}
+```
 </br>
 <img width="1208" height="956" alt="richieste con filtri opzionali" src="https://github.com/user-attachments/assets/30fe1ae2-a441-44d6-b023-581c6c9bdb66" />
 </br>
