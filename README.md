@@ -89,4 +89,12 @@ Rotte Amministratore </br>
 Utente non registrato </br>
 <img width="1094" height="707" alt="signup" src="https://github.com/user-attachments/assets/af7adb6b-dbdb-4c79-b274-88a3ff4ee394" />
 </br>
-### Docker
+### Avvio
+L'avvio del progetto può essere fatto con git clone  
+```bash
+git clone 
+```
+e successivamente creare la build con Docker
+```bash
+docker compose build
+```
