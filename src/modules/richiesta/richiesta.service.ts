@@ -168,8 +168,17 @@ export class RichiestaService {
 
         const { calendarioId, dataInizio, dataFine } = filters;
 
-        const start = new Date(dataInizio);
-        const end = new Date(dataFine);
+        // Converte in millisecondi UTC
+        const startUtcMs = Date.parse(dataInizio);
+        const endUtcMs = Date.parse(dataFine);
+
+        if (Number.isNaN(startUtcMs) || Number.isNaN(endUtcMs)) {
+            throw new CustomError("Formato data non valido.", HttpStatus.BAD_REQUEST);
+        }
+
+        // Crea oggetti Date *in UTC*, senza shift
+        const start = new Date(startUtcMs);
+        const end = new Date(endUtcMs);
 
         const richiesteSovrapposte = 
             await RichiestaRepo.sovrapposizioniOraDataCalendarioId(calendarioId, start, end);
@@ -199,10 +208,15 @@ export class RichiestaService {
         if (!calendario) {
             throw new CustomError('Calendario non trovato.', HttpStatus.NOT_FOUND);
         }
-
-        const nowData = new Date();
-        const inizioDataRichiesta = new Date(richiesta.dataInizio);
-        const fineDataRichiesta = new Date(richiesta.dataFine);
+        console.log({
+         nowLocal: new Date().toString(),
+        nowISO: new Date().toISOString(),
+        inizio: richiesta.dataInizio.toISOString(),
+        fine: richiesta.dataFine.toISOString()
+        });
+        const nowData = new Date(Date.now());
+        const inizioDataRichiesta = new Date(richiesta.dataInizio.getTime());
+        const fineDataRichiesta = new Date(richiesta.dataFine.getTime());
 
         const costoOrarioToken = calendario.tokenCostoOrario;
         const oreTotali = (fineDataRichiesta.getTime() - inizioDataRichiesta.getTime()) / (1000 * 60 * 60);
