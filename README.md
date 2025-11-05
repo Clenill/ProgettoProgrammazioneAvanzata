@@ -116,7 +116,7 @@ Esempio di **payload:**
 </br>
 <img width="1738" height="1071" alt="slot orario calendario" src="https://github.com/user-attachments/assets/c139ae1f-4270-4483-8e9c-8b151bd1d005" />
 </br>
-**Rotta:** `POST /createGraph`
+**Rotta:** `GET calendario/disponibile`
 
 Esempio di **payload:**
 
