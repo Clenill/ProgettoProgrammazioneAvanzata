@@ -62,3 +62,16 @@ Sono stati implementati 4 test con Jest, come da richiesta. I test coinvolgono i
 Diagramma casi d'uso</br></br>
 <img width="746" height="1281" alt="Diagramma casi uso drawio" src="https://github.com/user-attachments/assets/68dd6624-2ece-44bc-9b02-66d96299c05d" />
 Diagrammi sequenze </br></br>
+Rotte Utente: </br>
+<img width="967" height="707" alt="login" src="https://github.com/user-attachments/assets/6d651a6e-26ca-42e5-9d56-322bc30303a6" />
+</br>
+<img width="1670" height="1874" alt="crea richiesta" src="https://github.com/user-attachments/assets/a32acdfb-0f8f-4dca-93c4-a6f51ed1c10f" />
+</br>
+<img width="1122" height="987" alt="richieste filtra" src="https://github.com/user-attachments/assets/f4233a72-8e8e-4bae-843b-3af0650ef0d3" />
+</br>
+<img width="1855" height="1180" alt="elimina richiesta" src="https://github.com/user-attachments/assets/fec61dbc-ad47-4142-a20b-4de0812deaa9" />
+</br>
+<img width="1738" height="1071" alt="slot orario calendario" src="https://github.com/user-attachments/assets/c139ae1f-4270-4483-8e9c-8b151bd1d005" />
+</br>
+<img width="1208" height="956" alt="richieste con filtri opzionali" src="https://github.com/user-attachments/assets/30fe1ae2-a441-44d6-b023-581c6c9bdb66" />
+</br>
