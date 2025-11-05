@@ -78,6 +78,7 @@ Esempio di **payload:**
 </br>
 <img width="1670" height="1874" alt="crea richiesta" src="https://github.com/user-attachments/assets/a32acdfb-0f8f-4dca-93c4-a6f51ed1c10f" />
 </br>
+
 **Rotta:** `POST /richieste/crea`
 
 Esempio di **payload:**
@@ -94,6 +95,7 @@ Esempio di **payload:**
 </br>
 <img width="1122" height="987" alt="richieste filtra" src="https://github.com/user-attachments/assets/f4233a72-8e8e-4bae-843b-3af0650ef0d3" />
 </br>
+
 **Rotta:** `GET /richieste/filtra`
 
 Esempio di **payload:**
@@ -108,6 +110,7 @@ Esempio di **payload:**
 </br>
 <img width="1855" height="1180" alt="elimina richiesta" src="https://github.com/user-attachments/assets/fec61dbc-ad47-4142-a20b-4de0812deaa9" />
 </br>
+
 **Rotta:** `DELETE /richieste/elimina/{Id}`
 
 **Parametri query:**
@@ -117,6 +120,7 @@ Esempio di **payload:**
 </br>
 <img width="1738" height="1071" alt="slot orario calendario" src="https://github.com/user-attachments/assets/c139ae1f-4270-4483-8e9c-8b151bd1d005" />
 </br>
+
 **Rotta:** `GET calendario/disponibile`
 
 Esempio di **payload:**
@@ -131,6 +135,7 @@ Esempio di **payload:**
 </br>
 <img width="1208" height="956" alt="richieste con filtri opzionali" src="https://github.com/user-attachments/assets/30fe1ae2-a441-44d6-b023-581c6c9bdb66" />
 </br>
+
 **Rotta:** `POST richieste/recuperafiltrate`
 
 Esempio di **payload:**
@@ -147,6 +152,7 @@ Esempio di **payload:**
 Rotte Amministratore </br>
 <img width="1556" height="1391" alt="creazione calendario" src="https://github.com/user-attachments/assets/593feb80-43ef-4030-9f34-7f50dc306701" />
 </br>
+
 **Rotta:** `POST /calendario/crea`
 
 Esempio di **payload:**
@@ -160,6 +166,7 @@ Esempio di **payload:**
 </br>
 <img width="1263" height="1235" alt="conferma o rifiuta richiesta" src="https://github.com/user-attachments/assets/c844388e-7d28-4168-a0e7-56efc7fdf256" />
 </br>
+
 **Rotta:** `PUT /richieste/modifica/{richiestaId}`
 
 **Parametri query:**
@@ -176,6 +183,7 @@ Esempio di **payload:**
 </br>
 <img width="1355" height="937" alt="stato richeste per calendario" src="https://github.com/user-attachments/assets/372c88aa-ce45-45e5-b133-c4cc766934d7" />
 </br>
+
 **Rotta:** `GET /richieste/richiestecalendario/{id}`
 
 **Parametri query:**
@@ -185,6 +193,7 @@ Esempio di **payload:**
 </br>
 <img width="1340" height="1171" alt="aggiunta token" src="https://github.com/user-attachments/assets/7a459001-2c79-4947-b7fc-4e02e53d8ce3" />
 </br>
+
 **Rotta:** `PUT /user/addtokens`
 
 Esempio di **payload:**
@@ -198,6 +207,7 @@ Esempio di **payload:**
 </br>
 <img width="1224" height="1018" alt="creazione risorsa" src="https://github.com/user-attachments/assets/e5510ba1-dc7a-4932-88b5-5b3300e8da43" />
 </br>
+
 **Rotta:** `POST /risorse/nuovarisorsa`
 
 Esempio di **payload:**
@@ -211,6 +221,7 @@ Esempio di **payload:**
 Utente non registrato </br>
 <img width="1094" height="707" alt="signup" src="https://github.com/user-attachments/assets/af7adb6b-dbdb-4c79-b274-88a3ff4ee394" />
 </br>
+
 **Rotta:** `POST /auth/signup`
 
 Esempio di **payload:**
@@ -224,7 +235,7 @@ Esempio di **payload:**
 
 ```
 </br>
-</br>
+
 ### Avvio
 L'avvio del progetto può essere fatto con git clone  
 ```bash
