@@ -92,7 +92,7 @@ Utente non registrato </br>
 ### Avvio
 L'avvio del progetto può essere fatto con git clone  
 ```bash
-git clone 
+git clone https://github.com/Clenill/ProgettoProgrammazioneAvanzata.git
 ```
 e successivamente creare la build con Docker
 ```bash
