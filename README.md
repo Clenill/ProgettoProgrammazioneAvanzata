@@ -147,9 +147,41 @@ Esempio di **payload:**
 Rotte Amministratore </br>
 <img width="1556" height="1391" alt="creazione calendario" src="https://github.com/user-attachments/assets/593feb80-43ef-4030-9f34-7f50dc306701" />
 </br>
+**Rotta:** `POST /calendario/crea`
+
+Esempio di **payload:**
+
+```json
+{
+    "risorsaId": "08b1978a-a800-4ece-895a-7c91d6970016",
+    "tokenCostoOrario" : 1
+}
+```
+</br>
 <img width="1263" height="1235" alt="conferma o rifiuta richiesta" src="https://github.com/user-attachments/assets/c844388e-7d28-4168-a0e7-56efc7fdf256" />
 </br>
+**Rotta:** `POST /calendario/crea`
+
+**Parametri query:**
+
+- `richiestaId`: id della richiesta da modificare
+
+Esempio di **payload:**
+
+```json
+{
+    "stato": "approved"
+}
+```
+</br>
 <img width="1355" height="937" alt="stato richeste per calendario" src="https://github.com/user-attachments/assets/372c88aa-ce45-45e5-b133-c4cc766934d7" />
+</br>
+**Rotta:** `GET /richieste/richiestecalendario/{id}`
+
+**Parametri query:**
+
+- `calendarioId`: id del calendario a cui si vuole accedere per conoscere lo stato delle richeste
+
 </br>
 <img width="1340" height="1171" alt="aggiunta token" src="https://github.com/user-attachments/assets/7a459001-2c79-4947-b7fc-4e02e53d8ce3" />
 </br>
