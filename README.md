@@ -86,4 +86,7 @@ Rotte Amministratore </br>
 </br>
 <img width="1224" height="1018" alt="creazione risorsa" src="https://github.com/user-attachments/assets/e5510ba1-dc7a-4932-88b5-5b3300e8da43" />
 </br>
+Utente non registrato </br>
+<img width="1094" height="707" alt="signup" src="https://github.com/user-attachments/assets/af7adb6b-dbdb-4c79-b274-88a3ff4ee394" />
+</br>
 ### Docker
