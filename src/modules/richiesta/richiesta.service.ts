@@ -11,6 +11,14 @@ import { HttpStatus } from '@/utils/http-status';
 import { repo } from '../user/user.repo';
 
 export class RichiestaService {
+    /**
+     * Crea una nuova richiesta di prenotazione.
+     * - Valida input e utente
+     * - Controlla disponibilità calendario e slot
+     * - Calcola costo in token
+     * - Se insufficienti → richiesta invalid (non pending)
+     * - Altrimenti scala i token e crea richiesta pending
+     */
     static async creaRichiesta(data: Richiesta, user: any) {
         // Necessario per modificaUserTokensService
         if (!user.userId) {
@@ -72,6 +80,12 @@ export class RichiestaService {
         });
     }
 
+    /**
+     * Restituisce tutte le richieste, con eventuali filtri:
+     * - stato
+     * - dataInizio
+     * - dataFine
+     */
     static async tutteLeRichieste(filters?: any) {
         const where: any = {};
         // Filtra per stato
@@ -93,6 +107,13 @@ export class RichiestaService {
         return await RichiestaRepo.findAll(where);
     }
 
+    /**
+     * Aggiorna lo stato di una richiesta pending in approved/rejected.
+     * - Valida input, è necessario il campo motivazione se da porre rejected
+     * - Controlla esistenza richiesta
+     * - Verifica stato pending
+     * - Applica aggiornamento
+     */
     static async aggiornaStatoRichiestaPending(id: string, decision: any ) {
         // Validazione payload
         const { error } = validateRichiestaDecision(decision);
@@ -124,11 +145,21 @@ export class RichiestaService {
         return richiestaModificata;
     }
 
+    /**
+     * Restituisce TRUE se esistono richieste attive per un dato calendario.
+     * Utile per impedire archiviazione/cancellazione di calendari ancora utilizzati.
+     */
     static async esistonoRichiesteAttive(calendarioId: string): Promise<boolean> {
         const count = await RichiestaRepo.countActiveByCalendario(calendarioId);
         return count > 0;
     }
 
+    /**
+     * Verifica se un range orario è libero nel calendario:
+     * - Valida input 
+     * - Esegue query overlap
+     * - Restituisce true se NON ci sono sovrapposizioni
+     */
     static async verificaDisponibilitaRange(filters: any) {
         const { error } = validateDisponibilitaCalendario(filters);
         if (error) {
@@ -146,6 +177,14 @@ export class RichiestaService {
         return richiesteSovrapposte.length === 0;
     }
 
+     /**
+     * Cancella una richiesta dell’utente:
+     * - Controlla proprietà della richiesta
+     * - Calcola rimborso token in base all’orario
+     * - Applica eventuale penale
+     * - Aggiorna i token utente
+     * - Elimina la richiesta
+     */
     static async cancellaRichiesta(id: string, user: any) {
         const richiesta = await RichiestaRepo.findById(id);
         if(!richiesta) {
@@ -199,6 +238,12 @@ export class RichiestaService {
         };
     }
 
+    /**
+     * Filtra richieste in base a parametri opzionali:
+     * - calendarioId
+     * - stato
+     * - intervallo temporale
+     */
     static async tutteLeRichiesteFiltrate(filters: any) {
         const where: any = {};
 
@@ -224,6 +269,10 @@ export class RichiestaService {
         return await RichiestaRepo.filtraConParametriOpzionali(where);
     }
 
+    /**
+     * Restituisce tutte le richieste associate a un calendario.
+     * Controlla prima che il calendario esista.
+     */
     static async richiestePerCalendario(calendarioId: string) {
         const calendario = await CalendarioRepo.findById(calendarioId);
             if (!calendario) {

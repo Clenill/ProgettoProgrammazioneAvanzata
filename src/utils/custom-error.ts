@@ -5,6 +5,5 @@ export class CustomError extends Error {
         super(message);
         this.statusCode = statusCode;
         this.stack = undefined;
-        //Error.captureStackTrace(this, this.constructor);  Capture stack trace 
     }
 }

@@ -1,7 +1,7 @@
 import { CustomError } from '@/utils/custom-error';
 import CalendarioRepo from './calendario.repo';
 import { Calendario } from '@/interfaces/calendario.interfaces';
-import { validateCalendario } from './calendario.validator';
+import { validateCalendario, validateDisponibilitaCalendario } from './calendario.validator';
 import RisorsaRepo from '../risorsa/risorsa.repo';
 import { RichiestaService } from '../richiesta/richiesta.service';
 import { HttpStatus } from '@/utils/http-status';
@@ -35,6 +35,16 @@ export class CalendarioService {
     }
 
     static async disponibilePerIdeDataInizioFine(filters: any){
+        // Si validano i campi
+        const { error } = validateDisponibilitaCalendario(filters);
+        if (error) {
+            throw new CustomError(error.details[0].message, HttpStatus.BAD_REQUEST);
+        }
+        // Se calendario esiste ok altimenti errore
+        const calendario = await this.calendarioById(filters.calendarioId);
+        if (!calendario) {
+            throw new CustomError('Calendario non trovato.', HttpStatus.NOT_FOUND);
+        }
         const disponibile = await RichiestaService.verificaDisponibilitaRange(filters);
 
         return disponibile; // true o false
