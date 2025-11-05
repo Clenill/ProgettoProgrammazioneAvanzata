@@ -42,11 +42,15 @@ const RichiestaRepo = {
     },
 
     countActiveByCalendario: async(calendarioId: string): Promise<number> => {
+        const now = new Date(Date.now());
         return await DB.Richiesta.count({
             where: {
                 calendarioId,
                 stato: { [Op.in]: ['approved', 'pending'] },
-                dataInizio: { [Op.gt]: new Date(Date.now()) } // Valuta la data successiva a quella odierna
+                 [Op.or]: [
+                { dataInizio: { [Op.gt]: now } },  // richieste future
+                { dataFine:   { [Op.gt]: now } },  // richieste in corso
+            ]
             }
         });
     },
