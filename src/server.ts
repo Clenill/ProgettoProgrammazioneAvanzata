@@ -5,10 +5,13 @@ import { DB } from '@database/index';
 import { PORT } from './config';
 import { errorHandler } from './utils/error-handler';
 import logger from '@/utils/logger';
+import { HttpStatus } from '@/utils/http-status';
 
+// express() crea l'istanza dell'applicazione
 const appServer = express();
 const port = PORT;
 
+//origin * accetta richieste da qualsiasi origine
 const corsOptions = {
     origin: '*',
     optionsSuccessStatus: 200,
@@ -19,16 +22,19 @@ appServer.use(cors(corsOptions));
 appServer.options('*', cors(corsOptions));
 
 // Middleware for parsing JSON and URL-encoded bodies
+// Aggiunge il middleware che legge il body raw delle richeste
 appServer.use(express.json());
+// permette parsing di oggetti annidati
 appServer.use(express.urlencoded({ extended: true }));
 
 
-// Use the router
+// Use the router e errorHandler
 appServer.use(router);
 appServer.use(errorHandler);
 
+// qualsiasi path che non ha matchato prima restituisce un 404
 appServer.all('*', (req, res) => {
-    res.status(404).json({ message: 'Pagina non trovata :/' });
+    res.status(HttpStatus.NOT_FOUND).json({ message: 'Pagina non trovata :/' });
 });
 
 DB.sequelize.authenticate()

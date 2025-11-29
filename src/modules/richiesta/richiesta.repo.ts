@@ -3,14 +3,14 @@ import { Richiesta } from '@/interfaces/richiesta.interfaces';
 import { Op } from 'sequelize';
 
 const RichiestaRepo = {
-    create: async (data: Richiesta): Promise<Richiesta> => {
-        return await DB.Richiesta.create(data);
+    create: async (data: Richiesta): Promise<Richiesta> => {// metodo definito come arrow function asincrona
+        return await DB.Richiesta.create(data); // Chiamata a sequelize: crea una nuova richiesta
     },
 
-    findAll: async (filters: any = {}): Promise<Richiesta[]> => {
+    findAll: async (filters: any = {}): Promise<Richiesta[]> => {// default parameter, se non si passa nulla filters sarà oggetto vuoto
         return await DB.Richiesta.findAll({ 
             where: filters ,
-            attributes: ['id', 'stato'],
+            attributes: ['id', 'stato'],// si selezionano solo queste colonne per la risposta
         });
     },
 
@@ -35,8 +35,8 @@ const RichiestaRepo = {
             where: {
                 calendarioId,
                 stato: { [Op.in]: ['approved', 'pending'] },
-                dataInizio: { [Op.lt]: end },
-                dataFine: { [Op.gt]: start }
+                dataInizio: { [Op.lt]: end },// data inizio minore di end
+                dataFine: { [Op.gt]: start } // data fine maggiore di start
             }
         });
     },
@@ -46,9 +46,9 @@ const RichiestaRepo = {
         return await DB.Richiesta.count({
             where: {
                 calendarioId,
-                stato: { [Op.in]: ['approved', 'pending'] },
+                stato: { [Op.in]: ['approved', 'pending'] },// check se il valore è contenuto nell'array
                  [Op.or]: [
-                { dataInizio: { [Op.gt]: now } },  // richieste future
+                { dataInizio: { [Op.gt]: now } },  // richieste future. Op.gt greater than
                 { dataFine:   { [Op.gt]: now } },  // richieste in corso
             ]
             }
