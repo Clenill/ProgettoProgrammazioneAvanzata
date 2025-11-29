@@ -32,11 +32,13 @@ appServer.use(express.urlencoded({ extended: true }));
 appServer.use(router);
 appServer.use(errorHandler);
 
-// qualsiasi path che non ha matchato prima restituisce un 404
+// qualsiasi path che non ha matchato prima restituisce un Not Found con messaggio
 appServer.all('*', (req, res) => {
     res.status(HttpStatus.NOT_FOUND).json({ message: 'Pagina non trovata :/' });
 });
 
+// autenticate() è un metodo di sequelize che prova a connettersi al DB, risolve la Promise
+// Se la Promise non ha successo va il catch
 DB.sequelize.authenticate()
     .then(() => {
         appServer.listen(port, () => {

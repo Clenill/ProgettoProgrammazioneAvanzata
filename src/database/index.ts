@@ -14,6 +14,7 @@ import {
     NODE_ENV,
 } from '@/config';
 // questo file inizializza l'istanza di sequelize e connette al db, carica gli UserModel
+// Crea un'unica connessione logica al DB, che verrà utilizzata nell'applicazione.
 const sequelize = new Sequelize.Sequelize(
     DB_NAME as string,
     DB_USERNAME as string,
